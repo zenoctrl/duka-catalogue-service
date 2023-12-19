@@ -1,0 +1,22 @@
+server:
+  port: 8083
+
+spring:
+  profiles:
+    active: dev
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: dev
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password:
+    url: jdbc:mysql://localhost:3306/duka
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
