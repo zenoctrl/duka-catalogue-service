@@ -29,7 +29,8 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: ${MYSQLUSER}
     password: ${MYSQL_ROOT_PASSWORD}
-    url: jdbc:mysql://${RAILWAY_TCP_PROXY_DOMAIN}:${RAILWAY_TCP_PROXY_PORT}/${MYSQL_DATABASE}
+#    url: jdbc:mysql://${RAILWAY_TCP_PROXY_DOMAIN}:${RAILWAY_TCP_PROXY_PORT}/${MYSQL_DATABASE}
+    url: jdbc:${MYSQL_PRIVATE_URL}
   jpa:
     hibernate:
       ddl-auto: update
