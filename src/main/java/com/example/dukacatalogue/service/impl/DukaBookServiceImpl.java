@@ -1,8 +1,9 @@
-package com.example.dukacatalogue.service;
+package com.example.dukacatalogue.service.impl;
 
-import com.example.dukacatalogue.entity.Book;
+import com.example.dukacatalogue.entity.book.Book;
 import com.example.dukacatalogue.exception.BookNotFoundException;
 import com.example.dukacatalogue.repository.DukaBookRepository;
+import com.example.dukacatalogue.service.DukaBookService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
