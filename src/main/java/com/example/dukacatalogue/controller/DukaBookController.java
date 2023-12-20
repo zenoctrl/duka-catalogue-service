@@ -1,8 +1,7 @@
 package com.example.dukacatalogue.controller;
 
-import com.example.dukacatalogue.entity.Book;
+import com.example.dukacatalogue.entity.book.Book;
 import com.example.dukacatalogue.entity.Response;
-import com.example.dukacatalogue.exception.BookNotFoundException;
 import com.example.dukacatalogue.service.DukaBookService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -46,7 +45,7 @@ public class DukaBookController {
         Response response = new Response();
         Book newBook = dukaBookService.save(book);
         response.setStatus(200);
-        response.setMessage("Book saved successfully");
+        response.setMessage("Book saved successfully.");
         response.setData(newBook);
         return response;
     }
@@ -57,7 +56,7 @@ public class DukaBookController {
         Response response = new Response();
         Book updatedBook = dukaBookService.update(id, book);
         response.setStatus(200);
-        response.setMessage("Book saved successfully");
+        response.setMessage("Book updated successfully.");
         response.setData(updatedBook);
         return response;
     }
@@ -68,7 +67,7 @@ public class DukaBookController {
         Response response = new Response();
         if (dukaBookService.delete(id).equalsIgnoreCase("success")) {
             response.setStatus(200);
-            response.setMessage("Book deleted successfully");
+            response.setMessage("Book deleted successfully.");
         }
         response.setData(null);
         return response;

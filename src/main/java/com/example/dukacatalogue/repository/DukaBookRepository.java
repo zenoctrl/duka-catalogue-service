@@ -1,6 +1,6 @@
 package com.example.dukacatalogue.repository;
 
-import com.example.dukacatalogue.entity.Book;
+import com.example.dukacatalogue.entity.book.Book;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

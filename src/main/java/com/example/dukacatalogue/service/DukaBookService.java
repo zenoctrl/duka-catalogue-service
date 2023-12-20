@@ -1,9 +1,8 @@
 package com.example.dukacatalogue.service;
 
-import com.example.dukacatalogue.entity.Book;
+import com.example.dukacatalogue.entity.book.Book;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface DukaBookService {
     public List<Book> getAll();
