@@ -15,7 +15,7 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name="Books")
+@Table(name="Duka_Books")
 public class Book {
 
     @Id
