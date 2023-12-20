@@ -11,7 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Slf4j
-@RestController("/duka/api/v1/catalogue")
+@RestController
+@RequestMapping("/duka/api/v1/catalogue")
 public class DukaBookController {
 
     @Autowired
