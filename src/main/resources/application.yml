@@ -6,16 +6,30 @@ spring:
     active: dev
 
 ---
-
 spring:
   config:
     activate:
-      on-profile: dev
+      on-profile: development
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password:
     url: jdbc:mysql://localhost:3306/duka
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+---
+
+spring:
+  config:
+    activate:
+      on-profile: production
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: ${MYSQLUSER}
+    password: ${MYSQL_ROOT_PASSWORD}
+    url: jdbc:mysql://${RAILWAY_TCP_PROXY_DOMAIN}:${RAILWAY_TCP_PROXY_PORT}/${MYSQL_DATABASE}
   jpa:
     hibernate:
       ddl-auto: update
