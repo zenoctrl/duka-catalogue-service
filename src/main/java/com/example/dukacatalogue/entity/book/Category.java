@@ -1,4 +1,4 @@
-package com.example.dukacatalogue.entity;
+package com.example.dukacatalogue.entity.book;
 
 public enum Category {
     BIOGRAPHY,
@@ -6,5 +6,6 @@ public enum Category {
     SCIENCE_FICTION,
     ROMANCE,
     HORROR,
-    MYTHOLOGY
+    MYTHOLOGY,
+    FABLE
 }

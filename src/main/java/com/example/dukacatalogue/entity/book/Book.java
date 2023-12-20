@@ -1,4 +1,4 @@
-package com.example.dukacatalogue.entity;
+package com.example.dukacatalogue.entity.book;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
