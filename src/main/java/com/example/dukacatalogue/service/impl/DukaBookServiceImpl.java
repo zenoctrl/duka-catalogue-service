@@ -1,7 +1,7 @@
 package com.example.dukacatalogue.service.impl;
 
 import com.example.dukacatalogue.entity.book.Book;
-import com.example.dukacatalogue.exception.BookNotFoundException;
+import com.example.dukacatalogue.exception.NotFoundException;
 import com.example.dukacatalogue.repository.DukaBookRepository;
 import com.example.dukacatalogue.service.DukaBookService;
 import lombok.extern.slf4j.Slf4j;
@@ -28,11 +28,11 @@ public class DukaBookServiceImpl implements DukaBookService {
     }
 
     @Override
-    public Book getById(String id) throws BookNotFoundException {
+    public Book getById(String id) throws NotFoundException {
         Optional<Book> book = dukaBookRepository.findById(id);
         if (!book.isPresent()) {
             log.info("Book not found.");
-            throw new BookNotFoundException("Book not found.");
+            throw new NotFoundException("Book not found.");
         } else {
             log.info("Found {}", book.get());
         }
@@ -47,11 +47,11 @@ public class DukaBookServiceImpl implements DukaBookService {
     }
 
     @Override
-    public Book update(String id, Book book) throws BookNotFoundException {
+    public Book update(String id, Book book) throws NotFoundException {
         Optional<Book> existingBook = dukaBookRepository.findById(id);
         if (!existingBook.isPresent()) {
             log.info("Update failed. Book not found.");
-            throw new BookNotFoundException("Update failed. Book not found.");
+            throw new NotFoundException("Update failed. Book not found.");
         }
         Book updatedBook = dukaBookRepository.save(book);
         log.info("Updated {}", updatedBook);
@@ -59,11 +59,11 @@ public class DukaBookServiceImpl implements DukaBookService {
     }
 
     @Override
-    public String delete(String id) throws BookNotFoundException {
+    public String delete(String id) throws NotFoundException {
         Optional<Book> book = dukaBookRepository.findById(id);
         if (!book.isPresent()) {
             log.info("Delete failed. Book not found.");
-            throw new BookNotFoundException("Delete failed. Book not found.");
+            throw new NotFoundException("Delete failed. Book not found.");
         }
         log.info("Deleted {}", book.get());
         dukaBookRepository.deleteById(id);

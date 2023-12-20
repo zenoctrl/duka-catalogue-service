@@ -11,9 +11,9 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @RestControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(BookNotFoundException.class)
+    @ExceptionHandler(NotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ResponseEntity<Response> bookNotFoundException(BookNotFoundException e) {
+    public ResponseEntity<Response> bookNotFoundException(NotFoundException e) {
         Response response = new Response();
         response.setStatus(404);
         response.setMessage(e.getMessage());
