@@ -6,6 +6,8 @@ import com.example.dukacatalogue.service.DukaBookService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,51 +21,51 @@ public class DukaBookController {
     private DukaBookService dukaBookService;
 
     @GetMapping("/books")
-    public Response getAllBooks() {
+    public ResponseEntity<Response> getAllBooks() {
         log.info("Fetching Books ...");
         Response response = new Response();
         List<Book> books = dukaBookService.getAll();
         response.setStatus(200);
         response.setMessage("Books fetched successfully.");
         response.setData(books);
-        return response;
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @GetMapping("/books/{id}")
-    public Response getBookById(@PathVariable String id) throws Exception {
+    public ResponseEntity<Response> getBookById(@PathVariable String id) throws Exception {
         log.info("Fetching book with id {} ...", id);
         Response response = new Response();
         Book book = dukaBookService.getById(id);
         response.setStatus(200);
         response.setMessage("Book fetched successfully.");
         response.setData(book);
-        return response;
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @PostMapping("/books")
-    public Response save(@Valid @RequestBody Book book) {
+    public ResponseEntity<Response> save(@Valid @RequestBody Book book) {
         log.info("Saving {} ...", book);
         Response response = new Response();
         Book newBook = dukaBookService.save(book);
-        response.setStatus(200);
+        response.setStatus(201);
         response.setMessage("Book saved successfully.");
         response.setData(newBook);
-        return response;
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @PutMapping("/books/{id}")
-    public Response update(@PathVariable String id, @Valid @RequestBody Book book) throws Exception {
+    public ResponseEntity<Response> update(@PathVariable String id, @Valid @RequestBody Book book) throws Exception {
         log.info("Updating {} ...", book);
         Response response = new Response();
         Book updatedBook = dukaBookService.update(id, book);
-        response.setStatus(200);
+        response.setStatus(201);
         response.setMessage("Book updated successfully.");
         response.setData(updatedBook);
-        return response;
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @DeleteMapping("/books/{id}")
-    public Response delete(@PathVariable String id) throws Exception {
+    public ResponseEntity<Response> delete(@PathVariable String id) throws Exception {
         log.info("Deleting book with id {} ...", id);
         Response response = new Response();
         if (dukaBookService.delete(id).equalsIgnoreCase("success")) {
@@ -71,6 +73,6 @@ public class DukaBookController {
             response.setMessage("Book deleted successfully.");
         }
         response.setData(null);
-        return response;
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 }
