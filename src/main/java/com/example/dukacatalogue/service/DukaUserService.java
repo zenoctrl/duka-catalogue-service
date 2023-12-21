@@ -14,4 +14,6 @@ public interface DukaUserService {
     public User update(String id, User user) throws Exception;
 
     public String delete(String id) throws Exception;
+
+    public List<User> getAllStaff();
 }
