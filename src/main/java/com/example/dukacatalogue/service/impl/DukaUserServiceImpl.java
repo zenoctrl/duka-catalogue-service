@@ -1,5 +1,7 @@
 package com.example.dukacatalogue.service.impl;
 
+import com.example.dukacatalogue.entity.user.Role;
+import com.example.dukacatalogue.entity.user.Status;
 import com.example.dukacatalogue.entity.user.User;
 import com.example.dukacatalogue.exception.NotFoundException;
 import com.example.dukacatalogue.repository.DukaUserRepository;
@@ -20,7 +22,7 @@ public class DukaUserServiceImpl implements DukaUserService {
 
     @Override
     public List<User> getAllCustomers() {
-        List<User> users = dukaUserRepository.findAll().stream().filter(user -> user.getRole().equals("CUSTOMER")).toList();
+        List<User> users = dukaUserRepository.findAll().stream().filter(user -> user.getRole().equals(Role.CUSTOMER)).toList();
         String noun = "Customers";
         if (users.size() == 1) noun = "Customer";
         log.info("Found {} {}", users.size(), noun);
@@ -41,6 +43,9 @@ public class DukaUserServiceImpl implements DukaUserService {
 
     @Override
     public User save(User user) {
+        user.setStatus(Status.ACTIVE);
+        if (user.getRole() == null) user.setRole(Role.CUSTOMER);
+        if (user.getCreatedBy() == null) user.setCreatedBy("SELF-ONBOARD");
         User savedUser = dukaUserRepository.save(user);
         log.info("Saved {}", savedUser);
         return savedUser;
@@ -51,7 +56,7 @@ public class DukaUserServiceImpl implements DukaUserService {
         Optional<User> existingUser = dukaUserRepository.findById(id);
         if (!existingUser.isPresent()) {
             log.info("Account not found.");
-            throw new NotFoundException("Account not found");
+            throw new NotFoundException("Update failed. Account not found");
         }
         User updatedUser = dukaUserRepository.save(user);
         log.info("Updated {}", updatedUser);
@@ -63,10 +68,17 @@ public class DukaUserServiceImpl implements DukaUserService {
         Optional<User> user = dukaUserRepository.findById(id);
         if (!user.isPresent()) {
             log.info("Account not found.");
-            throw new NotFoundException("Account not found");
+            throw new NotFoundException("Delete failed. Account not found");
         }
         log.info("Deleted {}", user.get());
         dukaUserRepository.deleteById(id);
         return "Success";
+    }
+
+    @Override
+    public List<User> getAllStaff() {
+        List<User> users = dukaUserRepository.findAll().stream().filter(user -> !user.getRole().equals(Role.CUSTOMER)).toList();
+        log.info("Found {} Staff", users.size());
+        return users;
     }
 }
